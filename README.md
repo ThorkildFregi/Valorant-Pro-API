@@ -41,7 +41,7 @@ Create a new environment with conda or venv.
 Install the dependencies :
 
 ```bash
-pip install beautifulsoup4
+pip install beautifulsoup4, requests
 ```
 
 *Step 3 :*
