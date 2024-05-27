@@ -215,3 +215,35 @@ To get the score of team B.
 
 This is the player of the team under a form of class.
 
+
+--------------------------------
+
+*data.Player*
+
+This is the class of a player. You don't need to call it, it's in *data.Round.team_{a or b}.player_{1 to 5}*.
+
+----------------
+
+*data.Player.name*
+
+To get player name.
+
+----------------
+
+*data.Player.country*
+
+To get player country.
+
+----------------
+
+*data.Player.agent*
+
+To get player agent.
+
+----------------
+
+*data.Player.stat*
+
+To get the stats.
+
+--------------------------------
