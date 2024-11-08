@@ -16,28 +16,6 @@ Create a new environment with conda or venv.
 
 *Step 2 :*
 
-Clone the repositery in your project's file.
-
-```bash
-git clone https://github.com/ThorkildFregi/wikidata-image-classifier/
-```
-
-*Step 3 :*
-
-Install the dependencies :
-
-```bash
-pip install beautifulsoup4
-```
-
-OR
-
-*Step 1 :*
-
-Create a new environment with conda or venv.
-
-*Step 2 :*
-
 Install the dependencies :
 
 ```bash
