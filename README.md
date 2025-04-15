@@ -130,7 +130,7 @@ This is the class of a round. To call it, you need the round id and the match id
 
 Example to retrieve data from BBL Esports VS Gentle Mates Round 1 :
 ```python
-data.Match("164106", "318917")
+data.Round("164106", "318917")
 ```
 
 ----------------
