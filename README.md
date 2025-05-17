@@ -1,14 +1,12 @@
 # Valorant-Pro-API
 
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-**Presentation**
+## Presentation
 
 A python library to retrieve data from pro matches of valorant registered on the site https://vlr.gg/.
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-**Installation**
+## Installation
 
 *Step 1 :*
 
@@ -32,17 +30,15 @@ pip install Valorant-Pro-API
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-**Utilisation**
+## Usage
 
---------------------------------
-
-*data.get_events()* (Function)
+### [data.get_events()](/src/valorantproapi/data.py#L7-L28) (Function)
 
 Use it to retrieve all the event's id and name from https://vlr.gg/
 
 ----------------
 
-*data.Event* (Class)
+### [data.Event](/src/valorantproapi/data.py#L264-#L268) (Class)
 
 This is the class of an event. To call it, you need the event id.
 
@@ -71,7 +67,7 @@ To get the match's id of the event.
 
 --------------------------------
 
-*data.Match*
+### [data.Match](/src/valorantproapi/data.py#L270-L285) (Class)
 
 This is the class of a match. To call it, you need the match id.
 
@@ -124,7 +120,7 @@ To get the score of team B.
 
 --------------------------------
 
-*data.Round*
+### [data.Round](/src/valorantproapi/data.py#L305-L324) (Class)
 
 This is the class of a round. To call it, you need the round id and the match id.
 
@@ -196,7 +192,7 @@ This is the player of the team under a form of class.
 
 --------------------------------
 
-*data.Player*
+### [data.Player](/src/valorantproapi/data.py#L287-L303) (Class)
 
 This is the class of a player. You don't need to call it, it's in *data.Round.team_{a or b}.player_{1 to 5}*.
 
