@@ -64,7 +64,7 @@ def _get_matches(event_id: str) -> list:
 
     soup = BeautifulSoup(response.text, 'html.parser') 
 
-    cards_html = soup.find_all("div", {"class": "wf-card", "style": "margin-bottom: 30px;"}) 
+    cards_html = soup.find_all("div", {"class": "wf-card", "style": "margin-bottom: 30px; overflow: visible"}) 
 
     matches_html = [] 
     for card_html in cards_html: 
@@ -127,11 +127,12 @@ def _get_match_data(match_id: str) -> list:
     return team_a.strip(), team_b.strip(), ta_score, tb_score, winner, rounds 
 
 def _get_round_data(round_id: str, match_id: str, team_a: str, team_b: str) -> list: 
-    response = requests.get(url + match_id + "/?game=" + round_id, headers=headers) 
+    response = requests.get(url + match_id + "/?game=" + round_id, headers=headers)
 
-    soup = BeautifulSoup(response.text, 'html.parser') 
+    soup = BeautifulSoup(response.text, 'html.parser')
 
-    vm_stats_game = soup.find_all("div", {"class": "vm-stats-game mod-active"}) 
+    vm_stats = soup.find("div", {"class": "vm-stats-container"})
+    vm_stats_game = vm_stats.find_all("div", {"data-game-id": round_id})
 
     map_html = vm_stats_game[0].find_all("div", {"class": "map"}) 
 
@@ -154,7 +155,8 @@ def _get_players(round_id: str, match_id: str, team: str, is_team_a: bool):
 
             soup = BeautifulSoup(response.text, 'html.parser') 
 
-            vm_stats_game = soup.find_all("div", {"class": "vm-stats-game mod-active"}) 
+            vm_stats = soup.find("div", {"class": "vm-stats-container"})
+            vm_stats_game = vm_stats.find_all("div", {"data-game-id": round_id})
 
             players_html = vm_stats_game[0].find_all("div", {"class": "text-of"}) 
             flags_html  = vm_stats_game[0].find_all("i", {"class": "flag"}) 
@@ -271,7 +273,7 @@ class Match:
     def __init__(self, id: str): 
         self.id = id 
         team_a, team_b, team_a_score, team_b_score, self.winner, self.rounds = _get_match_data(self.id) 
-        self.team_a = self.Team_A(team_a, team_a_score) 
+        self.team_a = self.Team_A(team_a, team_a_score)
         self.team_b = self.Team_B(team_b, team_b_score) 
 
     class Team_A: 
