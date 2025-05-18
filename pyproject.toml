@@ -19,5 +19,5 @@ license = "Apache-2.0"
 license-files = ["LICEN[CS]E*"]
 
 [project.urls]
-Homepage = "https://github.com/ThorkildFregi/Valorant-Pro-API"
-Issues = "https://github.com/ThorkildFregi/Valorant-Pro-API/issues"
+Homepage = "https://github.com/pypa/sampleproject"
+Issues = "https://github.com/pypa/sampleproject/issues"
