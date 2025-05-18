@@ -151,117 +151,117 @@ def _get_round_data(round_id: str, match_id: str, team_a: str, team_b: str) -> l
     return map, ta_score, tb_score, winner 
 
 def _get_players(round_id: str, match_id: str, team: str, is_team_a: bool): 
-            response = requests.get(url + match_id + "/?game=" + round_id, headers=headers) 
+    response = requests.get(url + match_id + "/?game=" + round_id, headers=headers) 
 
-            soup = BeautifulSoup(response.text, 'html.parser') 
+    soup = BeautifulSoup(response.text, 'html.parser') 
 
-            vm_stats = soup.find("div", {"class": "vm-stats-container"})
-            vm_stats_game = vm_stats.find_all("div", {"data-game-id": round_id})
+    vm_stats = soup.find("div", {"class": "vm-stats-container"})
+    vm_stats_game = vm_stats.find_all("div", {"data-game-id": round_id})
 
-            players_html = vm_stats_game[0].find_all("div", {"class": "text-of"}) 
-            flags_html  = vm_stats_game[0].find_all("i", {"class": "flag"}) 
-            imgs_html = vm_stats_game[0].find_all("span", {"class": "stats-sq mod-agent small"}) 
-            stats_html = vm_stats_game[0].find_all("td", {"class": "mod-stat"}) 
+    players_html = vm_stats_game[0].find_all("div", {"class": "text-of"}) 
+    flags_html  = vm_stats_game[0].find_all("i", {"class": "flag"}) 
+    imgs_html = vm_stats_game[0].find_all("span", {"class": "stats-sq mod-agent small"}) 
+    stats_html = vm_stats_game[0].find_all("td", {"class": "mod-stat"}) 
 
-            i = 0 
-            names = [] 
-            countries = [] 
-            agents = [] 
-            ratings = [] 
-            acss = [] 
-            kills = [] 
-            deaths = [] 
-            assits = [] 
-            kasts = [] 
-            adrs = [] 
-            headshots = [] 
-            fks = [] 
-            fds = [] 
-            for player_html in players_html: 
-                if i <= 4 and is_team_a == True: 
-                    name = player_html.text.strip() 
+    i = 0 
+    names = [] 
+    countries = [] 
+    agents = [] 
+    ratings = [] 
+    acss = [] 
+    kills = [] 
+    deaths = [] 
+    assits = [] 
+    kasts = [] 
+    adrs = [] 
+    headshots = [] 
+    fks = [] 
+    fds = [] 
+    for player_html in players_html: 
+        if i <= 4 and is_team_a == True: 
+            name = player_html.text.strip() 
 
-                    flag_html = flags_html[i] 
-                    country = flag_html["title"] 
+            flag_html = flags_html[i] 
+            country = flag_html["title"] 
 
-                    img_html = imgs_html[i] 
-                    agent = img_html.find_all("img")[0]["title"] 
+            img_html = imgs_html[i] 
+            agent = img_html.find_all("img")[0]["title"] 
 
-                    stat_html = stats_html[i * 12:12 * (i + 1)] 
+            stat_html = stats_html[i * 12:12 * (i + 1)] 
 
-                    r = stat_html[0].find_all("span", {"class": "mod-both"})[0].text 
-                    acs = stat_html[1].find_all("span", {"class": "mod-both"})[0].text 
-                    k = stat_html[2].find_all("span", {"class": "mod-both"})[0].text 
-                    d = stat_html[3].find_all("span", {"class": "mod-both"})[0].text 
-                    a = stat_html[4].find_all("span", {"class": "mod-both"})[0].text 
-                    kast = stat_html[6].find_all("span", {"class": "mod-both"})[0].text 
-                    adr = stat_html[7].find_all("span", {"class": "mod-both"})[0].text 
-                    hs = stat_html[8].find_all("span", {"class": "mod-both"})[0].text 
-                    fk = stat_html[9].find_all("span", {"class": "mod-both"})[0].text 
-                    fd = stat_html[10].find_all("span", {"class": "mod-both"})[0].text 
+            r = stat_html[0].find_all("span", {"class": "mod-both"})[0].text 
+            acs = stat_html[1].find_all("span", {"class": "mod-both"})[0].text 
+            k = stat_html[2].find_all("span", {"class": "mod-both"})[0].text 
+            d = stat_html[3].find_all("span", {"class": "mod-both"})[0].text 
+            a = stat_html[4].find_all("span", {"class": "mod-both"})[0].text 
+            kast = stat_html[6].find_all("span", {"class": "mod-both"})[0].text 
+            adr = stat_html[7].find_all("span", {"class": "mod-both"})[0].text 
+            hs = stat_html[8].find_all("span", {"class": "mod-both"})[0].text 
+            fk = stat_html[9].find_all("span", {"class": "mod-both"})[0].text 
+            fd = stat_html[10].find_all("span", {"class": "mod-both"})[0].text 
 
-                    names.append(name) 
-                    countries.append(country) 
-                    agents.append(agent) 
-                    ratings.append(r) 
-                    acss.append(acs) 
-                    kills.append(k) 
-                    deaths.append(d) 
-                    assits.append(a) 
-                    kasts.append(kast) 
-                    adrs.append(adr) 
-                    headshots.append(hs) 
-                    fks.append(fk) 
-                    fds.append(fd) 
+            names.append(name) 
+            countries.append(country) 
+            agents.append(agent) 
+            ratings.append(r) 
+            acss.append(acs) 
+            kills.append(k) 
+            deaths.append(d) 
+            assits.append(a) 
+            kasts.append(kast) 
+            adrs.append(adr) 
+            headshots.append(hs) 
+            fks.append(fk) 
+            fds.append(fd) 
 
-                    i += 1 
-                elif i <= 4: 
-                    i += 1 
-                elif i > 4 and i <= 9 and is_team_a == False: 
-                    name = player_html.text.strip() 
+            i += 1 
+        elif i <= 4: 
+            i += 1 
+        elif i > 4 and i <= 9 and is_team_a == False: 
+            name = player_html.text.strip() 
 
-                    flag_html = flags_html[i] 
-                    country = flag_html["title"] 
+            flag_html = flags_html[i] 
+            country = flag_html["title"] 
 
-                    img_html = imgs_html[i] 
-                    agent = img_html.find_all("img")[0]["title"] 
+            img_html = imgs_html[i] 
+            agent = img_html.find_all("img")[0]["title"] 
 
-                    stat_html = stats_html[i * 12:12 * (i + 1)] 
+            stat_html = stats_html[i * 12:12 * (i + 1)] 
 
-                    r = stat_html[0].find_all("span", {"class": "mod-both"})[0].text 
-                    acs = stat_html[1].find_all("span", {"class": "mod-both"})[0].text 
-                    k = stat_html[2].find_all("span", {"class": "mod-both"})[0].text 
-                    d = stat_html[3].find_all("span", {"class": "mod-both"})[0].text 
-                    a = stat_html[4].find_all("span", {"class": "mod-both"})[0].text 
-                    kast = stat_html[6].find_all("span", {"class": "mod-both"})[0].text 
-                    adr = stat_html[7].find_all("span", {"class": "mod-both"})[0].text 
-                    hs = stat_html[8].find_all("span", {"class": "mod-both"})[0].text 
-                    fk = stat_html[9].find_all("span", {"class": "mod-both"})[0].text 
-                    fd = stat_html[10].find_all("span", {"class": "mod-both"})[0].text 
+            r = stat_html[0].find_all("span", {"class": "mod-both"})[0].text 
+            acs = stat_html[1].find_all("span", {"class": "mod-both"})[0].text 
+            k = stat_html[2].find_all("span", {"class": "mod-both"})[0].text 
+            d = stat_html[3].find_all("span", {"class": "mod-both"})[0].text 
+            a = stat_html[4].find_all("span", {"class": "mod-both"})[0].text 
+            kast = stat_html[6].find_all("span", {"class": "mod-both"})[0].text 
+            adr = stat_html[7].find_all("span", {"class": "mod-both"})[0].text 
+            hs = stat_html[8].find_all("span", {"class": "mod-both"})[0].text 
+            fk = stat_html[9].find_all("span", {"class": "mod-both"})[0].text 
+            fd = stat_html[10].find_all("span", {"class": "mod-both"})[0].text 
 
-                    names.append(name) 
-                    countries.append(country) 
-                    agents.append(agent) 
-                    ratings.append(r) 
-                    acss.append(acs) 
-                    kills.append(k) 
-                    deaths.append(d) 
-                    assits.append(a) 
-                    kasts.append(kast) 
-                    adrs.append(adr) 
-                    headshots.append(hs) 
-                    fks.append(fk) 
-                    fds.append(fd) 
+            names.append(name) 
+            countries.append(country) 
+            agents.append(agent) 
+            ratings.append(r) 
+            acss.append(acs) 
+            kills.append(k) 
+            deaths.append(d) 
+            assits.append(a) 
+            kasts.append(kast) 
+            adrs.append(adr) 
+            headshots.append(hs) 
+            fks.append(fk) 
+            fds.append(fd) 
 
-                    i += 1 
+            i += 1 
 
-            player_1 = Player(names[0], team, countries[0], agents[0], ratings[0], acss[0], kills[0], deaths[0], assits[0], kasts[0], adrs[0], headshots[0], fks[0], fds[0]) 
-            player_2 = Player(names[1], team, countries[1], agents[1], ratings[1], acss[1], kills[1], deaths[1], assits[1], kasts[1], adrs[1], headshots[1], fks[1], fds[1]) 
-            player_3 = Player(names[2], team, countries[2], agents[2], ratings[2], acss[2], kills[2], deaths[2], assits[2], kasts[2], adrs[2], headshots[2], fks[2], fds[2]) 
-            player_4 = Player(names[3], team, countries[3], agents[3], ratings[3], acss[3], kills[3], deaths[3], assits[3], kasts[3], adrs[3], headshots[3], fks[3], fds[3]) 
-            player_5 = Player(names[4], team, countries[4], agents[4], ratings[4], acss[4], kills[4], deaths[4], assits[4], kasts[4], adrs[4], headshots[4], fks[4], fds[4]) 
+    player_1 = Player(names[0], team, countries[0], agents[0], ratings[0], acss[0], kills[0], deaths[0], assits[0], kasts[0], adrs[0], headshots[0], fks[0], fds[0]) 
+    player_2 = Player(names[1], team, countries[1], agents[1], ratings[1], acss[1], kills[1], deaths[1], assits[1], kasts[1], adrs[1], headshots[1], fks[1], fds[1]) 
+    player_3 = Player(names[2], team, countries[2], agents[2], ratings[2], acss[2], kills[2], deaths[2], assits[2], kasts[2], adrs[2], headshots[2], fks[2], fds[2]) 
+    player_4 = Player(names[3], team, countries[3], agents[3], ratings[3], acss[3], kills[3], deaths[3], assits[3], kasts[3], adrs[3], headshots[3], fks[3], fds[3]) 
+    player_5 = Player(names[4], team, countries[4], agents[4], ratings[4], acss[4], kills[4], deaths[4], assits[4], kasts[4], adrs[4], headshots[4], fks[4], fds[4]) 
 
-            return player_1, player_2, player_3, player_4, player_5 
+    return player_1, player_2, player_3, player_4, player_5 
 
 class Event: 
     def __init__(self, id: str): 
